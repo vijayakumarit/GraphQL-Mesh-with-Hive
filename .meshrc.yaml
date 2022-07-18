@@ -1,12 +1,24 @@
 sources:
-  - name: Github
+  - name: ScoopsSearch
     handler:
       graphql:
-        endpoint: https://api.github.com/graphql
-        schemaHeaders:
-          Authorization: bearer {env.GH_ACCESS_TOKEN}
+        endpoint: http://localhost:8080/graphql/ScoopsSearch
+        baseUrl: http://localhost:8080/
         operationHeaders:
-          Authorization: bearer {env.GH_ACCESS_TOKEN}
-    transforms:
-      - prefix:
-          includeRootOperations: true
+          user: "{env.user}"
+          x-zisession: "{env.x-zisession}"
+          x-ziid: "{env.x-ziid}"
+          x-ziaccesstoken: "{env.x-ziaccesstoken}"
+
+  - name: FacetsSearch 
+    handler:
+      graphql:
+        endpoint: http://localhost:8080/graphql/facets
+        baseUrl: http://localhost:8080/
+        operationHeaders:
+          user: "{env.user}"
+          x-zisession: "{env.x-zisession}"
+          x-ziid: "{env.x-ziid}"
+          x-ziaccesstoken: "{env.x-ziaccesstoken}"
+
+additionalEnvelopPlugins: './envelopPlugins'
